@@ -1,22 +1,47 @@
 const express = require('express');
 const app = express();
-const port = 3005;
+const port = 3000;
+
+app.use(express.static('public'));
 
 app.get('/', (req, res)=>{
     res.send('Server del mio blog');
-    console.log('ciao');
 })
 
 app.listen(port, ()=>{
     console.log('messaggio in terminale vs code');
 })
 
-// - Creiamo il progetto base con una rotta / che ritorna un testo semplice con scritto ”Server del mio blog”
+app.get('/bacheca', (req, res)=>{
+    
+    const recipes = [
+        {
+            titolo: "dolceUno",
+            contenuto: "ciambellone",
+            immagine: "images/ciambellone.jpeg",
+            tags: ["crema","pistacchio","cioccolato"],
+        }, {
+            titolo: "spuntino",
+            contenuto: "crackersDolci",
+            immagine: "images/cracker_barbabietola.jpeg",
+            tags: ["crackers","barbabietola"],
+        }, {
+            titolo: "carboidrati",
+            contenuto: "paneFritto",
+            immagine: "images/pane_fritto_dolce.jpeg",
+            tags: ["pane","olio","frittura"],
+        }, {
+            titolo: "dolceDue",
+            contenuto: "pastaBarbabietola",
+            immagine: "images/pasta_barbabietola.jpeg",
+            tags: ["pasta","barbabietola"],
+        }, {
+            titolo: "dolceTre",
+            contenuto: "tortaPaesena",
+            immagine: "images/torta_paesana.jpeg",
+            tags: ["torta","zucchero","uova"],
+        },
+    ];
 
-// - Creiamo un array dove inserire una lista di almeno 5 post, per ognuno indicare titolo, contenuto, immagine e tags (tags è un array di stringhe)
-
-// - Creiamo poi una rotta /bacheca che restituisca un oggetto json con la lista dei post.
-
-// - Configuriamo gli asset statici sull’applicazione in modo che si possano visualizzare le immagini associate ad ogni post.
-
-// - Testare su postman;
+    res.json(recipes);
+})
